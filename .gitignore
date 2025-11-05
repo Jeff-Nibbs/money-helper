@@ -1,0 +1,88 @@
+# ============================
+# Global settings
+# ============================
+.DS_Store
+.env
+*.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+*.pot
+*.mo
+*.py[cod]
+*$py.class
+
+# ============================
+# Node / React (frontend)
+# ============================
+frontend/node_modules/
+frontend/.vite/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+
+# npm/yarn/pnpm logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Editor / system
+frontend/.DS_Store
+frontend/.idea/
+frontend/.vscode/
+frontend/.parcel-cache/
+
+# ============================
+# Python / FastAPI (backend)
+# ============================
+backend/__pycache__/
+backend/.venv/
+backend/venv/
+backend/env/
+backend/.mypy_cache/
+backend/.pytest_cache/
+backend/.ruff_cache/
+backend/.coverage
+backend/coverage.xml
+backend/htmlcov/
+
+# Uvicorn reload cache
+backend/.uvicorn_reload/
+da_ai_plan.md
+
+# Local databases or secrets
+backend/.env
+backend/*.db
+
+# ============================
+# OS / IDE files
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+ehthumbs.db
+
+# ============================
+# Virtual environments (root-level)
+# ============================
+.venv/
+venv/
+env/
+ENV/
+
+# ============================
+# PyInstaller / Build artifacts
+# ============================
+build/
+dist/
+*.egg-info/
+*.spec
+
