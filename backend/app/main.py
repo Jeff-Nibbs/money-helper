@@ -1,10 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from .database import Base, engine
 from . import models
 from .routers import auth, goals, plaid, insights
+from .config import JWT_SECRET_KEY
 
 app = FastAPI()
+
+# Session middleware (must be added before CORS for OAuth to work)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=JWT_SECRET_KEY,
+)
 
 # CORS middleware to allow frontend requests
 app.add_middleware(
