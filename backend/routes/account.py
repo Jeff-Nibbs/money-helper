@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field
-from fastapi import APIRouter, Depends, Path, Query, HTTPException
-from database import engine, SessionLocal
+from pydantic import BaseModel
+from fastapi import APIRouter, Depends, HTTPException
+from database import SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
 from starlette import status
@@ -57,4 +57,15 @@ async def create_account(user: user_dependency, db: db_dependency, create_accoun
     owner_id=user.get('id')
     )
     db.add(account_model)
+    db.commit()
+
+@router.delete('/{account_id}')
+async def delete_account(user: user_dependency, db: db_dependency, account_id: int):
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Authentication failed')
+    account_model = db.query(Account).filter(Account.id == account_id).first()
+    if account_model is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Account not found')
+
+    db.delete(account_model)
     db.commit()

@@ -31,6 +31,7 @@ class CreateUserRequest(BaseModel):
     email: str = Field(min_length=5)
     hashed_password: str
     is_active: bool
+    user_role: str
 
 class Token(BaseModel):
     access_token: str
@@ -54,8 +55,8 @@ def authenticate_user(username: str, password: str, db):
         return False
     return user
 
-def create_access_token(username: str, user_id: int, expires_delta: timedelta):
-    encode = {'sub': username, 'id': user_id}
+def create_access_token(username: str, user_id: int, user_role: str, expires_delta: timedelta):
+    encode = {'sub': username, 'id': user_id, 'user_role': user_role}
     expires = datetime.now(timezone.utc) + expires_delta
     encode.update({'exp': expires})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -65,9 +66,10 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         username = payload.get('sub')
         user_id = payload.get('id')
+        user_role = payload.get('user_role')
         if username is None or user_id is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could not validate credentials')
-        return {'username': username, 'id': user_id}
+        return {'username': username, 'id': user_id, 'user_role': user_role}
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could not validate credentials')
 

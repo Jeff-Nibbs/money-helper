@@ -12,6 +12,7 @@ class User(Base):
     email= Column(String, unique=True, nullable=False)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
+    user_role = Column(String)
 
 class Account(Base):
     __tablename__ = 'accounts'

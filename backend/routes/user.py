@@ -28,9 +28,6 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@router.get('/user', status_code=status.HTTP_200_OK)
-async def get_all_users(db: db_dependency):
-    return db.query(User).all()
 
 
 

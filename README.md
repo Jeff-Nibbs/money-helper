@@ -5,3 +5,8 @@ This app is designed to be the modern solution for a modern problem. Money might
 
 ### How to run
 
+### Tech Stack
+* SQLite
+* FastAPI
+* SQLAlchemy
+* 
