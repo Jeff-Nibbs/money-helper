@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from models import User
 from datetime import timezone, timedelta, datetime
 from jose import jwt, JWTError
+
 router = APIRouter(
     prefix='/auth',
     tags=['auth']
@@ -88,5 +89,5 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='could not validate credentials')
-    token = create_access_token(user.username, user.id, timedelta(minutes=20))
+    token = create_access_token(user.user_name, user.id, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}

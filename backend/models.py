@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import String, Integer, Column, ForeignKey, Boolean
+from sqlalchemy import String, Integer, Column, ForeignKey, Boolean, Float
 
 
 class User(Base):
@@ -19,7 +19,7 @@ class Account(Base):
     id = Column(Integer, primary_key=True, index=True)
     official_name = Column(String)
     type = Column(String)
-    balance = Column(Integer)
+    balance = Column(Float)
     subtype = Column(String)
     owner_id = Column(Integer, ForeignKey('users.id'))
 
